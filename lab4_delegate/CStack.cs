@@ -6,58 +6,51 @@ using System.Threading.Tasks;
 
 namespace lab4_delegate
 {
-    public class CStack<T>
+    public class СStack<T>
     {
-        private T[] _array; //массив для хранения данных типа T
-        private const int defaultCapacity = 10; //вместимость по умолчанию, потом можно расширить
-        private int size; //размер
-
-        public CStack()
-        { //конструктор
-            size = 0;
-            _array = new T[defaultCapacity];
-        }
-
-        public bool isEmpty() //проверка на пустоту
+        private T[] items; // элементы стека
+        private int count;  // количество элементов
+        const int n = 10;   // количество элементов в массиве по умолчанию
+        public СStack()
         {
-            return size == 0;
+            items = new T[n];
         }
-
-        public virtual int Count //параметр для вывода размера 
+        public СStack(int length)
         {
-            get
-            {
-                return size;
-            }
+            items = new T[length];
         }
-
-        public T Pop() //метод взятия с вершины
+        // пуст ли стек
+        public bool IsEmpty
         {
-            if (size == 0)
-            { //вброс ошибки при взятии с пустого стека (Overflow)
-                throw new InvalidOperationException();
-            }
-            return _array[--size];
+            get { return count == 0; }
         }
-
-        public void Push(T newElement)
+        // размер стека
+        public int Count
         {
-            if (this.size == _array.Length) //если у нас переполнение...
-            { //знаю, что неоптимально, но это c#...
-                T[] newArray = new T[2 * _array.Length];
-                Array.Copy(_array, 0, newArray, 0, this.size);
-                _array = newArray; //просто создаем новый массив с двойным размером
-            }
-            _array[size++] = newElement; //вставляем элемент
+            get { return count; }
         }
-
+        // добвление элемента
+        public void Push(T item)
+        {
+            // если стек заполнен, выбрасываем исключение
+            if (count == items.count)
+                throw new InvalidOperationException("Переполнение стека");
+            items[count++] = item;
+        }
+        // извлечение элемента
+        public T Pop()
+        {
+            // если стек пуст, выбрасываем исключение
+            if (IsEmpty)
+                throw new InvalidOperationException("Стек пуст");
+            T item = items[--count];
+            items[count] = default(T); // сбрасываем ссылку
+            return item;
+        }
+        // возвращаем элемент из верхушки стека
         public T Peek()
         {
-            if (size == 0)
-            {
-                throw new InvalidOperationException();
-            }
-            return _array[size - 1];
+            return items[count - 1];
         }
     }
 

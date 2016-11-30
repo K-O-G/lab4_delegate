@@ -7,12 +7,30 @@ namespace lab4_delegate
     {
         static void Main(string[] args)
         {
-            CStack<int> stack = new CStack<int>();
-            stack.Push(3);
-            stack.Push(18);
-            Console.WriteLine("element Number " + stack.Count.ToString() + " is " + stack.Pop().ToString());
-            Console.WriteLine("element Number " + stack.Count.ToString() + " is " + stack.Pop().ToString());
-            Console.ReadKey();
+            try
+            {
+                СStack<string> stack = new СStack<string>(8);
+                // добавляем четыре элемента
+                stack.Push("Kate");
+                stack.Push("Sam");
+                stack.Push("Alice");
+                stack.Push("Tom");
+
+                // извлекаем один элемент
+                var head = stack.Pop();
+                Console.WriteLine(head);    // Tom
+
+                // просто получаем верхушку стека без извлечения
+                head = stack.Peek();
+                Console.WriteLine(head);    // Alice
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+            Console.Read();
         }
     }
 
