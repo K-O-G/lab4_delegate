@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lab4_delegate
 {
@@ -10,6 +7,13 @@ namespace lab4_delegate
     {
         static void Main(string[] args)
         {
+            CStack<int> stack = new CStack<int>();
+            stack.Push(3);
+            stack.Push(18);
+            Console.WriteLine("element Number " + stack.Count.ToString() + " is " + stack.Pop().ToString());
+            Console.WriteLine("element Number " + stack.Count.ToString() + " is " + stack.Pop().ToString());
+            Console.ReadKey();
         }
     }
+
 }
